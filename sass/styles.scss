@@ -1,0 +1,138 @@
+/*!
+This is a generated stylesheet asdaasasdasda
+Written by Steven Jackson - 21 July 2016
+
+Custom Bootstrap file with commonly used 
+
+IMPORTANT:
+DO NOT EDIT THE CSS DIRECTLY
+*/ 
+
+@import url(https://fonts.googleapis.com/css?family=Lato);
+
+// Default colors
+$white: #ffffff;
+$black: #000000;
+
+// Variables
+$font-stack: 'Lato', sans-serif;
+$font-size: 1.5em;
+$paragraph-font-size: 1.3em;
+$font-color: $black;
+$heading-color: $black;
+$link-color: $black;
+
+
+// Helper Mixin
+@mixin margin-spacer() {margin: 40px 0;}
+@mixin padding-spacer() {padding: 40px 0;}
+
+
+// Default Mixin
+@mixin link-style($padding:0,$background-color:$black,$text-color:$link-color) {padding: $padding;background-color:$background-color;color: $text-color;}
+@mixin link-transition($time:0.5s){ -webkit-transition: all linear $time; -o-transition: all linear $time;transition: all linear $time;};
+
+
+
+// Global styles
+body {font: $font-size $font-stack;}
+h1,h2,h3,h4,h5,h6 {color: $heading-color;}
+p {font-size: $paragraph-font-size;}
+a {
+	@include link-style(10px 20px, #c3c3c3);
+	@include link-transition(0.3s);
+	
+	&:hover {@include link-style(#000);@include link-transition(0.6s);}
+}
+
+
+
+
+// Breakpoints
+
+/* ----------- Laptop ----------- */
+$laptop-min-width: 1200px;
+$laptop-max-width: 1600px;
+
+// Embedded Usage: @media screen and (min-device-width: $laptop-min-width) and (max-device-width: $laptop-max-width) { }
+// Retina: @media screen and (min-device-width: $laptop-min-width) and (max-device-width: $laptop-max-width) and (-webkit-min-device-pixel-ratio: 2)and (min-resolution: 192dpi) { }
+
+/* ----------- Phones ----------- */
+/* ----------- iPhone 4 and 4S ----------- */
+$iphone4-min-width: 320px;
+$iphone4-max-width: 480px;
+
+// Embedded Usage: @media only screen and (min-device-width: $iphone4-min-width) and (max-device-width: $iphone4-max-width) and (-webkit-min-device-pixel-ratio: 2) { }
+// Portait: @media only screen and (min-device-width: $iphone4-min-width) and (max-device-width: $iphone4-max-width) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait) { }
+// Landscape: @media only screen and (min-device-width: $iphone4-min-width) and (max-device-width: $iphone4-max-width) and (-webkit-min-device-pixel-ratio: 2) and (orientation: landscape) { }
+
+
+/* ----------- iPhone 5 and 5S ----------- */
+$iphone5-min-width: 320px;
+$iphone5-max-width: 568px;
+
+// Embedded Usage: @media only screen and (min-device-width: $iphone5-min-width) and (max-device-width: $iphone5-max-width) and (-webkit-min-device-pixel-ratio: 2) { }
+// Portait: @media only screen and (min-device-width: $iphone5-min-width) and (max-device-width: $iphone5-max-width) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait) { }
+// Landscape: @media only screen  and (min-device-width: $iphone5-min-width)  and (max-device-width: $iphone5-max-width) and (-webkit-min-device-pixel-ratio: 2) and (orientation: landscape) { }
+
+/* ----------- iPhone 6 ----------- */
+$iphone6-min-width: 375px;
+$iphone6-max-width: 667px;
+
+// Embedded Usage: @media only screen  and (min-device-width: $iphone6-min-width) and (max-device-width: $iphone6-max-width) and (-webkit-min-device-pixel-ratio: 2) { }
+// Portait: @media only screen  and (min-device-width: $iphone6-min-width) and (max-device-width: $iphone6-max-width) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait) { }
+// Landscape: @media only screen  and (min-device-width: $iphone6-min-width) and (max-device-width: $iphone6-max-width) and (-webkit-min-device-pixel-ratio: 2) and (orientation: landscape) { }
+
+
+/* ----------- iPhone 6+ ----------- */
+$iphone6-min-width: 414px;
+$iphone6-max-width: 736px;
+
+// Embedded Usage: @media only screen and (min-device-width: $iphone6-min-width) and (max-device-width: $iphone6-max-width) and (-webkit-min-device-pixel-ratio: 3) { }
+// Portait: @media only screen and (min-device-width: $iphone6-min-width) and (max-device-width: $iphone6-max-width) and (-webkit-min-device-pixel-ratio: 3) and (orientation: portrait) { }
+// Landscape: @media only screen and (min-device-width: $iphone6-min-width) and (max-device-width: $iphone6-max-width) and (-webkit-min-device-pixel-ratio: 3)and (orientation: landscape) { }
+
+/* ----------- Galaxy S3 ----------- */
+$galaxy3-min-width: 320px;
+$galaxy3-max-width: 640px;
+
+// Embedded Usage: @media screen and (device-width: $galaxy3-min-width) and (device-height: $galaxy3-max-width) and (-webkit-device-pixel-ratio: 2) {}
+// Portait: @media screen and (device-width: $galaxy3-min-width) and (device-height: $galaxy3-max-width) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait) {}
+// Landscape: @media screen and (device-width: $galaxy3-min-width) and (device-height: $galaxy3-max-width) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape) { }
+
+/* ----------- Galaxy S4----------- */
+$galaxy4-min-width: 320px;
+$galaxy4-max-width: 640px;
+
+// Embedded Usage: @media screen and (device-width: $galaxy4-min-width) and (device-height: $galaxy4-max-width) and (-webkit-device-pixel-ratio: 3) {}
+// Portait: @media screen and (device-width: $galaxy4-min-width) and (device-height: $galaxy4-max-width) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait) {}
+// Landscape: @media screen and (device-width: $galaxy4-min-width) and (device-height: $galaxy4-max-width) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape) { }
+
+/* ----------- Galaxy S5----------- */
+$galaxy5-min-width: 360px;
+$galaxy5-max-width: 640px;
+
+// Embedded Usage: @media screen and (device-width: $galaxy5-min-width) and (device-height: $galaxy5-max-width) and (-webkit-device-pixel-ratio: 3) {}
+// Portait: @media screen and (device-width: $galaxy5-min-width) and (device-height: $galaxy5-max-width) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait) {}
+// Landscape: @media screen and (device-width: $galaxy5-min-width) and (device-height: $galaxy5-max-width) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape) { }
+
+
+/* ----------- Tablets ----------- */
+/* ----------- iPad mini, 1 and 2 ----------- */
+
+$ipad-old-min-width: 768px;
+$ipad-old-max-width: 1024px;
+
+// Embedded Usage: @media only screen and (min-device-width: $ipad-old-min-width) and (max-device-width: $ipad-old-max-width) and (-webkit-min-device-pixel-ratio: 1) {}
+// Portait: @media only screen and (min-device-width: $ipad-old-min-width) and (max-device-width: $ipad-old-max-width) and (orientation: portrait) and (-webkit-min-device-pixel-ratio: 1) {}
+// Landscape: @media only screen and (min-device-width: $ipad-old-min-width) and (max-device-width: $ipad-old-max-width) and (orientation: landscape) and (-webkit-min-device-pixel-ratio: 1) {}
+
+/* ----------- iPad 3 and 4 ----------- */
+
+$ipad-min-width: 768px;
+$ipad-max-width: 1024px;
+
+// Embedded Usage: @media only screen and (min-device-width: $ipad-min-width) and (max-device-width: $ipad-max-width) and (-webkit-min-device-pixel-ratio: 2) {}
+// Portait: @media only screen and (min-device-width: $ipad-min-width) and (max-device-width: $ipad-max-width) and (orientation: portrait) and (-webkit-min-device-pixel-ratio: 2) {}
+// Landscape: @media only screen and (min-device-width: $ipad-min-width) and (max-device-width: $ipad-max-width) and (orientation: landscape) and (-webkit-min-device-pixel-ratio: 2) {}
+
