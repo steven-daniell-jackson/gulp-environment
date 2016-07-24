@@ -8,7 +8,8 @@ htmlmin = require('gulp-htmlmin'),
 replace = require('gulp-replace-task'),
 runSequence = require('run-sequence'),
 clean = require('gulp-clean'),
-tinypng = require('gulp-tinypng');
+tinypng = require('gulp-tinypng'),
+urlAdjuster = require('gulp-css-url-adjuster');
 
 // Express server
 gulp.task('express', function() {
@@ -91,21 +92,32 @@ gulp.src('src-files/js/**')
 
 });
 
-// Replace /src/
+// Replace /src-files/ in html
 gulp.task('replace', function() {
-    gulp.src('./dist/index.html')
-        .pipe(replace({
-            patterns: [
-                {
-                    match: /src-files/g,
-                    replacement: '.'
-                }
-            ]
-        }))
-        .pipe(gulp.dest('dist/'))
+  gulp.src('./dist/index.html')
+  .pipe(replace({
+    patterns: [
+    {
+      match: /src-files/g,
+      replacement: '.'
+    }
+    ]
+  }))
+  .pipe(gulp.dest('dist/'))
 
-       
-      });
+
+});
+
+// Replace /src-files/ in CSS
+gulp.task('replace-css', function() {
+ gulp.src('./dist/css/bundle.min.css').
+ pipe(urlAdjuster({
+  replace:  ['../../src-files/',''],
+}))
+
+ .pipe(minifycss())
+ .pipe(gulp.dest('./dist/css/'));
+});
 
 
 // Watch for changes and reload page
@@ -117,22 +129,22 @@ gulp.task('watch', function() {
 
 // Clean directory
 gulp.task('clean', function () {
-    return gulp.src('dist', {read: false})
-        .pipe(clean());
+  return gulp.src('dist', {read: false})
+  .pipe(clean());
 });
 
 // "dist" task. Start sequence
 gulp.task('dist', function(callback) {
     // runSequence('clean', ['concat-css', 'min-html', 'replace', 'copy'], callback);
-    runSequence('clean', 'concat-css', 'min-html', 'replace', 'copy', function() {});
+    runSequence('clean', 'concat-css', 'min-html', 'copy', 'replace', function() {});
     
-});
+  });
 
 // Compress images using tinypng API
 gulp.task('tinypng', function () {
-    gulp.src('src-files/**/*.png')
-        .pipe(tinypng('UHTk65aGnnMbspZF8K7-Kvnq_DrON7ya'))
-        .pipe(gulp.dest('./dist'));
+  gulp.src('src-files/**/*.png')
+  .pipe(tinypng('UHTk65aGnnMbspZF8K7-Kvnq_DrON7ya'))
+  .pipe(gulp.dest('./dist'));
 });
 
 // Default config

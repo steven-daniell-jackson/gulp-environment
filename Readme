@@ -30,6 +30,7 @@ Build Distribution:
 -- Usage --
 
 Run "gulp dist" in your CLI
+*** Run "gulp replace-css" to fix URL's in the dist folder
 
 -- Build sequence --
 
@@ -59,6 +60,7 @@ Distribution Structure:
 	- index.html
 	- package.json
 	- Readme
+
 
 **********************************************************************************************************************************************
 
