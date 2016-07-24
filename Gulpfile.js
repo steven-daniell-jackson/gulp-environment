@@ -7,7 +7,8 @@ concatCss = require('gulp-concat-css'),
 htmlmin = require('gulp-htmlmin'),
 replace = require('gulp-replace-task'),
 runSequence = require('run-sequence'),
-clean = require('gulp-clean');
+clean = require('gulp-clean'),
+tinypng = require('gulp-tinypng');
 
 // Express server
 gulp.task('express', function() {
@@ -84,15 +85,13 @@ gulp.task('copy', function(){
   gulp.src('package.json')
   .pipe(gulp.dest('dist'));
 
-// CSS, JS and IMG directories
+// CSS, JS directories
 gulp.src('src-files/css/**')
 .pipe(gulp.dest('dist/css'));
 
 gulp.src('src-files/js/**')
 .pipe(gulp.dest('dist/js'));
 
-gulp.src('src-files/img/**')
-.pipe(gulp.dest('dist/img'));
 });
 
 // Replace /src/
@@ -112,7 +111,6 @@ gulp.task('replace', function() {
       });
 
 
-
 // Watch for changes and reload page
 gulp.task('watch', function() {
   gulp.watch('src-files/sass/*.scss', ['styles']);
@@ -127,11 +125,17 @@ gulp.task('clean', function () {
 });
 
 // "dist" task. Start sequence
-
 gulp.task('dist', function(callback) {
     // runSequence('clean', ['concat-css', 'min-html', 'replace', 'copy'], callback);
     runSequence('clean', 'concat-css', 'min-html', 'replace', 'copy', function() {});
     
+});
+
+// Compress images using tinypng API
+gulp.task('tinypng', function () {
+    gulp.src('src-files/**/*.png')
+        .pipe(tinypng('UHTk65aGnnMbspZF8K7-Kvnq_DrON7ya'))
+        .pipe(gulp.dest('./dist'));
 });
 
 // Default config
