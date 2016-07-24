@@ -52,7 +52,6 @@ gulp.task('min-html', function() {
   .pipe(htmlmin({collapseWhitespace: true}))
   .pipe(gulp.dest('dist'))
 
-  callback();
 });
 
 // Minify CSS
@@ -62,8 +61,6 @@ gulp.task('styles', function() {
   .pipe(rename({suffix: '.min'}))
   .pipe(minifycss())
   .pipe(gulp.dest('src-files/css'));
-
-  callback();
 });
 
 // Copy to /dist/ directory
