@@ -94,7 +94,7 @@ gulp.src('src-files/js/**')
 
 // Replace /src-files/ in html
 gulp.task('replace', function() {
-  gulp.src('./dist/index.html')
+  gulp.src('./dist/*.html')
   .pipe(replace({
     patterns: [
     {
@@ -107,6 +107,8 @@ gulp.task('replace', function() {
 
 
 });
+
+
 
 // Replace /src-files/ in CSS
 gulp.task('replace-css', function() {
