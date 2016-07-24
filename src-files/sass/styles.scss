@@ -11,7 +11,7 @@ DO NOT EDIT THE CSS DIRECTLY
 @import url(https://fonts.googleapis.com/css?family=Lato);
 
 // Default colors
-$white: #ffffff;
+$white: #fff;
 $black: #000000;
 
 // Variables
@@ -26,6 +26,7 @@ $link-color: $black;
 // Helper Mixin
 @mixin margin-spacer() {margin: 40px 0;}
 @mixin padding-spacer() {padding: 40px 0;}
+@mixin background-image($filename) {background: url($filename) no-repeat center center;background-size: cover;}
 
 
 // Default Mixin
@@ -34,7 +35,7 @@ $link-color: $black;
 
 
 
-// Global styles
+// Base styles
 body {font: $font-size $font-stack;}
 h1,h2,h3,h4,h5,h6 {color: $heading-color;}
 p {font-size: $paragraph-font-size;}
@@ -45,7 +46,7 @@ a {
 	&:hover {@include link-style(#000);@include link-transition(0.6s);}
 }
 
-
+.row {margin: 0px;}
 
 
 // Breakpoints

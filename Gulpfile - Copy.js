@@ -35,14 +35,14 @@ function notifyLiveReload(event) {
 
 // Combine CSS
 gulp.task('concat-css', function () {
-  return gulp.src('src-files/css/**/*.min.css')
-  .pipe(concatCss("src-files/css/bundle.min.css"))
+  return gulp.src('src/css/**/*.min.css')
+  .pipe(concatCss("src/css/bundle.min.css"))
   .pipe(minifycss())
   .pipe(gulp.dest(''));
 });
 
 // Minify HTML
-gulp.task('min-html', function() {
+gulp.task('min', function() {
   return gulp.src('*.html')
   .pipe(htmlmin({collapseWhitespace: true}))
   .pipe(gulp.dest('dist'))
@@ -50,11 +50,11 @@ gulp.task('min-html', function() {
 
 // Minify CSS
 gulp.task('styles', function() {
-  return sass('src-files/sass', { style: 'expanded' })
-  .pipe(gulp.dest('src-files/css'))
+  return sass('src/sass', { style: 'expanded' })
+  .pipe(gulp.dest('src/css'))
   .pipe(rename({suffix: '.min'}))
   .pipe(minifycss())
-  .pipe(gulp.dest('src-files/css'));
+  .pipe(gulp.dest('src/css'));
 });
 
 // Copy to /dist/ directory
@@ -77,13 +77,13 @@ gulp.task('copy', function(){
   .pipe(gulp.dest('dist'));
 
 // CSS, JS and IMG directories
-gulp.src('src-files/css/**')
+gulp.src('src/css/**')
 .pipe(gulp.dest('dist/css'));
 
-gulp.src('src-files/js/**')
+gulp.src('src/js/**')
 .pipe(gulp.dest('dist/js'));
 
-gulp.src('src-files/img/**')
+gulp.src('src/img/**')
 .pipe(gulp.dest('dist/img'));
 });
 
@@ -93,38 +93,29 @@ gulp.task('replace', function() {
         .pipe(replace({
             patterns: [
                 {
-                    match: /src-files/g,
-                    replacement: './'
+                    match: /src/g,
+                    replacement: ''
                 }
             ]
         }))
         .pipe(gulp.dest('dist/'))
       });
 
-
-
 // Watch for changes and reload page
 gulp.task('watch', function() {
-  gulp.watch('src-files/sass/*.scss', ['styles']);
+  gulp.watch('src/sass/*.scss', ['styles']);
   gulp.watch('*.html', notifyLiveReload);
-  gulp.watch('src-files/css/*.css', notifyLiveReload);
+  gulp.watch('src/css/*.css', notifyLiveReload);
 });
 
 // Task sequence for "dist"
 
 gulp.task('start-concat-css', ['concat-css'], function() {
-  gulp.start('start-min-html')
-});
-
-gulp.task('start-min-html', ['min-html'], function() {
-  gulp.start('start-replace')
-});
-
-gulp.task('start-replace', ['replace'], function() {
-  gulp.start('start-copy')
+	gulp.start('start-copy')
 });
 
 gulp.task('start-copy', ['copy'], function() {});
+
 
 
 // "dist" task. Start sequence

@@ -4,8 +4,7 @@ autoprefixer = require('gulp-autoprefixer'),
 minifycss = require('gulp-minify-css'),
 rename = require('gulp-rename'),
 concatCss = require('gulp-concat-css'),
-htmlmin = require('gulp-htmlmin'),
-replace = require('gulp-replace-task');
+htmlmin = require('gulp-htmlmin');
 
 // Express server
 gulp.task('express', function() {
@@ -35,8 +34,8 @@ function notifyLiveReload(event) {
 
 // Combine CSS
 gulp.task('concat-css', function () {
-  return gulp.src('src-files/css/**/*.min.css')
-  .pipe(concatCss("src-files/css/bundle.min.css"))
+  return gulp.src('css/**/*.min.css')
+  .pipe(concatCss("css/bundle.min.css"))
   .pipe(minifycss())
   .pipe(gulp.dest(''));
 });
@@ -50,11 +49,11 @@ gulp.task('min-html', function() {
 
 // Minify CSS
 gulp.task('styles', function() {
-  return sass('src-files/sass', { style: 'expanded' })
-  .pipe(gulp.dest('src-files/css'))
+  return sass('sass', { style: 'expanded' })
+  .pipe(gulp.dest('css'))
   .pipe(rename({suffix: '.min'}))
   .pipe(minifycss())
-  .pipe(gulp.dest('src-files/css'));
+  .pipe(gulp.dest('css'));
 });
 
 // Copy to /dist/ directory
@@ -77,58 +76,24 @@ gulp.task('copy', function(){
   .pipe(gulp.dest('dist'));
 
 // CSS, JS and IMG directories
-gulp.src('src-files/css/**')
+gulp.src('css/**')
 .pipe(gulp.dest('dist/css'));
 
-gulp.src('src-files/js/**')
+gulp.src('js/**')
 .pipe(gulp.dest('dist/js'));
 
-gulp.src('src-files/img/**')
+gulp.src('img/**')
 .pipe(gulp.dest('dist/img'));
 });
 
-// Replace /src/
-gulp.task('replace', function() {
-    gulp.src('./index.html')
-        .pipe(replace({
-            patterns: [
-                {
-                    match: /src-files/g,
-                    replacement: './'
-                }
-            ]
-        }))
-        .pipe(gulp.dest('dist/'))
-      });
-
-
-
 // Watch for changes and reload page
 gulp.task('watch', function() {
-  gulp.watch('src-files/sass/*.scss', ['styles']);
+  gulp.watch('sass/*.scss', ['styles']);
   gulp.watch('*.html', notifyLiveReload);
-  gulp.watch('src-files/css/*.css', notifyLiveReload);
+  gulp.watch('css/*.css', notifyLiveReload);
 });
 
-// Task sequence for "dist"
-
-gulp.task('start-concat-css', ['concat-css'], function() {
-  gulp.start('start-min-html')
-});
-
-gulp.task('start-min-html', ['min-html'], function() {
-  gulp.start('start-replace')
-});
-
-gulp.task('start-replace', ['replace'], function() {
-  gulp.start('start-copy')
-});
-
-gulp.task('start-copy', ['copy'], function() {});
-
-
-// "dist" task. Start sequence
-gulp.task('dist', ['replace','start-concat-css'], function() {});
+gulp.task('dist', ['min-html', 'copy'], function() {});
 
 // Default config
 gulp.task('default', ['styles', 'express', 'livereload', 'watch'], function() {
