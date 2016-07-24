@@ -36,7 +36,7 @@ function notifyLiveReload(event) {
   });
 }
 
-// Combine CSS
+// Combine CSS and minify css
 gulp.task('concat-css', function () {
   return gulp.src('src-files/css/**/*.min.css')
   .pipe(concatCss("src-files/css/bundle.min.css"))
