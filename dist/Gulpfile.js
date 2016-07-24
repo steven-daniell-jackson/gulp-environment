@@ -5,7 +5,9 @@ minifycss = require('gulp-minify-css'),
 rename = require('gulp-rename'),
 concatCss = require('gulp-concat-css'),
 htmlmin = require('gulp-htmlmin'),
-replace = require('gulp-replace-task');
+replace = require('gulp-replace-task'),
+runSequence = require('run-sequence'),
+clean = require('gulp-clean');
 
 // Express server
 gulp.task('express', function() {
@@ -35,10 +37,12 @@ function notifyLiveReload(event) {
 
 // Combine CSS
 gulp.task('concat-css', function () {
-  return gulp.src('src/css/**/*.min.css')
-  .pipe(concatCss("src/css/bundle.min.css"))
+  return gulp.src('src-files/css/**/*.min.css')
+  .pipe(concatCss("src-files/css/bundle.min.css"))
   .pipe(minifycss())
   .pipe(gulp.dest(''));
+
+  callback();
 });
 
 // Minify HTML
@@ -46,15 +50,19 @@ gulp.task('min-html', function() {
   return gulp.src('*.html')
   .pipe(htmlmin({collapseWhitespace: true}))
   .pipe(gulp.dest('dist'))
+
+  callback();
 });
 
 // Minify CSS
 gulp.task('styles', function() {
-  return sass('src/sass', { style: 'expanded' })
-  .pipe(gulp.dest('src/css'))
+  return sass('src-files/sass', { style: 'expanded' })
+  .pipe(gulp.dest('src-files/css'))
   .pipe(rename({suffix: '.min'}))
   .pipe(minifycss())
-  .pipe(gulp.dest('src/css'));
+  .pipe(gulp.dest('src-files/css'));
+
+  callback();
 });
 
 // Copy to /dist/ directory
@@ -77,56 +85,71 @@ gulp.task('copy', function(){
   .pipe(gulp.dest('dist'));
 
 // CSS, JS and IMG directories
-gulp.src('src/css/**')
+gulp.src('src-files/css/**')
 .pipe(gulp.dest('dist/css'));
 
-gulp.src('src/js/**')
+gulp.src('src-files/js/**')
 .pipe(gulp.dest('dist/js'));
 
-gulp.src('src/img/**')
+gulp.src('src-files/img/**')
 .pipe(gulp.dest('dist/img'));
 });
 
 // Replace /src/
 gulp.task('replace', function() {
-    gulp.src('./index.html')
+    gulp.src('./dist/index.html')
         .pipe(replace({
             patterns: [
                 {
-                    match: 'src/',
-                    replacement: ''
+                    match: /src-files/g,
+                    replacement: '.'
                 }
             ]
         }))
         .pipe(gulp.dest('dist/'))
+
+       
       });
+
+
 
 // Watch for changes and reload page
 gulp.task('watch', function() {
-  gulp.watch('src/sass/*.scss', ['styles']);
+  gulp.watch('src-files/sass/*.scss', ['styles']);
   gulp.watch('*.html', notifyLiveReload);
-  gulp.watch('src/css/*.css', notifyLiveReload);
+  gulp.watch('src-files/css/*.css', notifyLiveReload);
 });
 
 // Task sequence for "dist"
 
-gulp.task('start-concat-css', ['concat-css'], function() {
-  gulp.start('start-min-html')
+// gulp.task('start-concat-css', ['concat-css'], function() {
+//   gulp.start('start-min-html')
+// });
+
+// gulp.task('start-min-html', ['min-html'], function() {
+//   gulp.start('start-replace')
+// });
+
+// gulp.task('start-replace', ['replace'], function() {
+//   gulp.start('start-copy')
+// });
+
+// gulp.task('start-copy', ['copy'], function() {});
+
+gulp.task('clean', function () {
+    return gulp.src('dist', {read: false})
+        .pipe(clean());
 });
-
-gulp.task('start-min-html', ['min-html'], function() {
-  gulp.start('start-replace')
-});
-
-gulp.task('start-replace', ['replace'], function() {
-  gulp.start('start-copy')
-});
-
-gulp.task('start-copy', ['copy'], function() {});
-
 
 // "dist" task. Start sequence
-gulp.task('dist', ['replace','start-concat-css'], function() {});
+// gulp.task('dist', ['replace','start-concat-css', 'copy'], function() {});
+gulp.task('dist', function(callback) {
+    // runSequence('clean', ['concat-css', 'min-html', 'replace', 'copy'], callback);
+    runSequence('clean', 'concat-css', 'min-html', 'replace', 'copy', function() {
+        // console.log('Run something else');
+        // done();
+    });
+});
 
 // Default config
 gulp.task('default', ['styles', 'express', 'livereload', 'watch'], function() {

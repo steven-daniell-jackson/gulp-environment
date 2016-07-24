@@ -5,7 +5,9 @@ minifycss = require('gulp-minify-css'),
 rename = require('gulp-rename'),
 concatCss = require('gulp-concat-css'),
 htmlmin = require('gulp-htmlmin'),
-replace = require('gulp-replace-task');
+replace = require('gulp-replace-task'),
+runSequence = require('run-sequence'),
+clean = require('gulp-clean');
 
 // Express server
 gulp.task('express', function() {
@@ -39,6 +41,8 @@ gulp.task('concat-css', function () {
   .pipe(concatCss("src-files/css/bundle.min.css"))
   .pipe(minifycss())
   .pipe(gulp.dest(''));
+
+  callback();
 });
 
 // Minify HTML
@@ -46,6 +50,8 @@ gulp.task('min-html', function() {
   return gulp.src('*.html')
   .pipe(htmlmin({collapseWhitespace: true}))
   .pipe(gulp.dest('dist'))
+
+  callback();
 });
 
 // Minify CSS
@@ -55,6 +61,8 @@ gulp.task('styles', function() {
   .pipe(rename({suffix: '.min'}))
   .pipe(minifycss())
   .pipe(gulp.dest('src-files/css'));
+
+  callback();
 });
 
 // Copy to /dist/ directory
@@ -89,16 +97,18 @@ gulp.src('src-files/img/**')
 
 // Replace /src/
 gulp.task('replace', function() {
-    gulp.src('./index.html')
+    gulp.src('./dist/index.html')
         .pipe(replace({
             patterns: [
                 {
                     match: /src-files/g,
-                    replacement: './'
+                    replacement: '.'
                 }
             ]
         }))
         .pipe(gulp.dest('dist/'))
+
+       
       });
 
 
@@ -110,25 +120,19 @@ gulp.task('watch', function() {
   gulp.watch('src-files/css/*.css', notifyLiveReload);
 });
 
-// Task sequence for "dist"
-
-gulp.task('start-concat-css', ['concat-css'], function() {
-  gulp.start('start-min-html')
+// Clean directory
+gulp.task('clean', function () {
+    return gulp.src('dist', {read: false})
+        .pipe(clean());
 });
-
-gulp.task('start-min-html', ['min-html'], function() {
-  gulp.start('start-replace')
-});
-
-gulp.task('start-replace', ['replace'], function() {
-  gulp.start('start-copy')
-});
-
-gulp.task('start-copy', ['copy'], function() {});
-
 
 // "dist" task. Start sequence
-gulp.task('dist', ['replace','start-concat-css'], function() {});
+
+gulp.task('dist', function(callback) {
+    // runSequence('clean', ['concat-css', 'min-html', 'replace', 'copy'], callback);
+    runSequence('clean', 'concat-css', 'min-html', 'replace', 'copy', function() {});
+    
+});
 
 // Default config
 gulp.task('default', ['styles', 'express', 'livereload', 'watch'], function() {
