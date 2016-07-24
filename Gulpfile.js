@@ -114,7 +114,7 @@ gulp.task('replace', function() {
 gulp.task('replace-css', function() {
  gulp.src('./dist/css/bundle.min.css').
  pipe(urlAdjuster({
-  replace:  ['../../src-files/',''],
+  replace:  ['../../../img','../img'],
 }))
 
  .pipe(minifycss())
@@ -138,7 +138,10 @@ gulp.task('clean', function () {
 // "dist" task. Start sequence
 gulp.task('dist', function(callback) {
     // runSequence('clean', ['concat-css', 'min-html', 'replace', 'copy'], callback);
-    runSequence('clean', 'concat-css', 'min-html', 'copy', 'replace', function() {});
+    runSequence('clean', 'concat-css', 'min-html', 'copy', 'replace', function() {
+
+      
+    });
     
   });
 
