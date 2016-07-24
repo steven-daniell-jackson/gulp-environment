@@ -120,35 +120,18 @@ gulp.task('watch', function() {
   gulp.watch('src-files/css/*.css', notifyLiveReload);
 });
 
-// Task sequence for "dist"
-
-// gulp.task('start-concat-css', ['concat-css'], function() {
-//   gulp.start('start-min-html')
-// });
-
-// gulp.task('start-min-html', ['min-html'], function() {
-//   gulp.start('start-replace')
-// });
-
-// gulp.task('start-replace', ['replace'], function() {
-//   gulp.start('start-copy')
-// });
-
-// gulp.task('start-copy', ['copy'], function() {});
-
+// Clean directory
 gulp.task('clean', function () {
     return gulp.src('dist', {read: false})
         .pipe(clean());
 });
 
 // "dist" task. Start sequence
-// gulp.task('dist', ['replace','start-concat-css', 'copy'], function() {});
+
 gulp.task('dist', function(callback) {
     // runSequence('clean', ['concat-css', 'min-html', 'replace', 'copy'], callback);
-    runSequence('clean', 'concat-css', 'min-html', 'replace', 'copy', function() {
-        // console.log('Run something else');
-        // done();
-    });
+    runSequence('clean', 'concat-css', 'min-html', 'replace', 'copy', function() {});
+    
 });
 
 // Default config
