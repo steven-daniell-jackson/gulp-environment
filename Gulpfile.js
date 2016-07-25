@@ -16,7 +16,7 @@ gulp.task('express', function() {
   var express = require('express');
   var app = express();
   app.use(require('connect-livereload')({port: 35729}));
-  app.use(express.static(__dirname + "/src-files"));
+  app.use(express.static(__dirname + "/src"));
   app.listen(3000, '0.0.0.0');
 });
 
@@ -39,8 +39,8 @@ function notifyLiveReload(event) {
 
 // Combine CSS and minify css
 gulp.task('concat-css', function () {
-  return gulp.src('src-files/css/**/*.min.css')
-  .pipe(concatCss("src-files/css/bundle.min.css"))
+  return gulp.src('src/css/**/*.min.css')
+  .pipe(concatCss("src/css/bundle.min.css"))
   .pipe(minifycss())
   .pipe(gulp.dest(''));
 
@@ -57,11 +57,11 @@ gulp.task('min-html', function() {
 
 // Minify CSS
 gulp.task('styles', function() {
-  return sass('src-files/sass', { style: 'expanded' })
-  .pipe(gulp.dest('src-files/css'))
+  return sass('src/sass', { style: 'expanded' })
+  .pipe(gulp.dest('src/css'))
   .pipe(rename({suffix: '.min'}))
   .pipe(minifycss())
-  .pipe(gulp.dest('src-files/css'));
+  .pipe(gulp.dest('src/css'));
 });
 
 // Copy to /dist/ directory
@@ -84,25 +84,25 @@ gulp.task('copy', function(){
   .pipe(gulp.dest('dist'));
 
 // CSS, JS directories
-gulp.src('src-files/css/**')
+gulp.src('src/css/**')
 .pipe(gulp.dest('dist/css'));
 
 // CSS, JS directories
-gulp.src('src-files/*.html')
+gulp.src('src/*.html')
 .pipe(gulp.dest('dist/'));
 
-gulp.src('src-files/js/**')
+gulp.src('src/js/**')
 .pipe(gulp.dest('dist/js'));
 
 });
 
-// Replace /src-files/ in html
+// Replace /src/ in html
 gulp.task('replace', function() {
   gulp.src('./dist/*.html')
   .pipe(replace({
     patterns: [
     {
-      match: /src-files/g,
+      match: /src/g,
       replacement: '.'
     }
     ]
@@ -114,7 +114,7 @@ gulp.task('replace', function() {
 
 
 
-// Replace /src-files/ in CSS
+// Replace /src/ in CSS
 gulp.task('replace-css', function() {
  gulp.src('./dist/css/bundle.min.css').
  pipe(urlAdjuster({
@@ -128,9 +128,9 @@ gulp.task('replace-css', function() {
 
 // Watch for changes and reload page
 gulp.task('watch', function() {
-  gulp.watch('src-files/sass/*.scss', ['styles']);
-  gulp.watch('src-files/*.html', notifyLiveReload);
-  gulp.watch('src-files/css/*.css', notifyLiveReload);
+  gulp.watch('src/sass/*.scss', ['styles']);
+  gulp.watch('src/*.html', notifyLiveReload);
+  gulp.watch('src/css/*.css', notifyLiveReload);
 });
 
 // Clean directory
@@ -151,7 +151,7 @@ gulp.task('dist', function(callback) {
 
 // Compress images using tinypng API
 gulp.task('tinypng', function () {
-  gulp.src('src-files/**/*.png')
+  gulp.src('src/**/*.png')
   .pipe(tinypng('UHTk65aGnnMbspZF8K7-Kvnq_DrON7ya'))
   .pipe(gulp.dest('./dist'));
 });
