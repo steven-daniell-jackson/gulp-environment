@@ -17,7 +17,7 @@ Navigate to "http://localhost:3000/" and Happy coding
 
 Default Environment:
 
--- src-files
+-- src
 	-- css
 	-- img
 	-- js
@@ -30,14 +30,13 @@ Build Distribution:
 -- Usage --
 
 Run "gulp dist" in your CLI
-*** Run "gulp replace-css" to fix URL's in the dist folder
 
 -- Build sequence --
 
 clean - Clear directory
 concat-css - Combine and minify CSS
 min-html - Minify HTML
-replace - Replace "/src-files/" with "./"
+replace - Replace "/src/" with "./"
 copy - Copy files to "dist" directory
 
 
@@ -69,7 +68,7 @@ Build Tinypng:
 -- Usage --
 Run "gulp tinypng" in your CLI
 
-Description: Compresses images within the "src-files" directory using Tinypng API and copies it to "/dist/img/" and retains structure 
+Description: Compresses images within the "src" directory using Tinypng API and copies it to "/dist/img/" and retains structure 
 
 -- dist
 	-- img
@@ -85,12 +84,12 @@ REMOVE: "<link rel="stylesheet" href="css/styles.min.css">" from "/dist/index.ht
 **********************************************************************************************************************************************
 
 DEBUG TOOLS:
-"/src-files/css/styles.css" is used for debugging the processed scss file located in "sass/styles.scss"
+"/src/css/styles.css" is used for debugging the processed scss file located in "sass/styles.scss"
 
 **********************************************************************************************************************************************
 
 Note: 
-Replacing "/src-files/css/bootstrap.min.css" with the Development/Custom version of bootstrap can be done.
+Replacing "/src/css/bootstrap.min.css" with the Development/Custom version of bootstrap can be done.
 Just run "gulp dist" for the changes to take effect
 
 **********************************************************************************************************************************************
