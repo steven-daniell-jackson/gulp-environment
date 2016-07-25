@@ -57,7 +57,7 @@ Distribution Structure:
 	- .gitignore
 	- .htaccess
 	- Gulpfile.js
-	- index.html
+	- *.html
 	- package.json
 	- Readme
 
