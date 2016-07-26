@@ -37,6 +37,20 @@ function notifyLiveReload(event) {
   });
 }
 
+
+
+
+
+// DISTRIBUTION
+
+// Minify HTML
+gulp.task('min-html', function() {
+  return gulp.src('src/*.html')
+  .pipe(htmlmin({collapseWhitespace: true}))
+  .pipe(gulp.dest('dist'))
+
+});
+
 // Combine CSS and minify css
 gulp.task('concat-css', function () {
   return gulp.src('src/css/**/*.min.css')
@@ -45,14 +59,6 @@ gulp.task('concat-css', function () {
   .pipe(gulp.dest(''));
 
   callback();
-});
-
-// Minify HTML
-gulp.task('min-html', function() {
-  return gulp.src('*.html')
-  .pipe(htmlmin({collapseWhitespace: true}))
-  .pipe(gulp.dest('dist'))
-
 });
 
 // Minify CSS
@@ -120,24 +126,17 @@ gulp.task('replace-css', function() {
  pipe(urlAdjuster({
   replace:  ['../../../img','../img'],
 }))
-
  .pipe(minifycss())
  .pipe(gulp.dest('./dist/css/'));
 });
 
-
-// Watch for changes and reload page
-gulp.task('watch', function() {
-  gulp.watch('src/sass/*.scss', ['styles']);
-  gulp.watch('src/*.html', notifyLiveReload);
-  gulp.watch('src/css/*.css', notifyLiveReload);
-});
 
 // Clean directory
 gulp.task('clean', function () {
   return gulp.src('dist', {read: false})
   .pipe(clean());
 });
+
 
 // "dist" task. Start sequence
 gulp.task('dist', function(callback) {
@@ -148,6 +147,102 @@ gulp.task('dist', function(callback) {
     });
     
   });
+
+// END DISTRIBUTION
+
+
+// PRODUCTION
+
+// Combine CSS and minify css
+gulp.task('prod-concat-css', function () {
+  return gulp.src('src/css/**/*.min.css')
+  .pipe(concatCss("src/css/bundle.min.css"))
+  // .pipe(minifycss())
+  .pipe(gulp.dest(''));
+
+  callback();
+});
+
+// Copy to /dist/ directory
+gulp.task('prod-copy', function(){
+
+  // Specific files
+  gulp.src('.htaccess')
+  .pipe(gulp.dest('prod'));
+
+  gulp.src('.gitignore')
+  .pipe(gulp.dest('prod'));
+
+  gulp.src('Gulpfile.js')
+  .pipe(gulp.dest('prod'));
+
+  gulp.src('Readme')
+  .pipe(gulp.dest('prod'));
+
+  gulp.src('package.json')
+  .pipe(gulp.dest('prod'));
+
+// CSS, JS directories
+gulp.src('src/css/**')
+.pipe(gulp.dest('prod/css'));
+
+// CSS, JS directories
+gulp.src('src/*.html')
+.pipe(gulp.dest('prod/'));
+
+gulp.src('src/js/**')
+.pipe(gulp.dest('prod/js'));
+
+});
+
+// Replace /src/ in html
+gulp.task('prod-replace', function() {
+  gulp.src('./prod/*.html')
+  .pipe(replace({
+    patterns: [
+    {
+      match: /src/g,
+      replacement: '.'
+    }
+    ]
+  }))
+  .pipe(gulp.dest('prod/'))
+
+
+});
+
+
+// Clean directory
+gulp.task('prod-clean', function () {
+  return gulp.src('prod', {read: false})
+  .pipe(clean());
+});
+
+
+
+
+// "prod" task. Start sequence
+gulp.task('prod', function(callback) {
+    // runSequence('clean', ['concat-css', 'min-html', 'replace', 'copy'], callback);
+    runSequence('prod-clean', 'prod-concat-css', 'prod-copy', 'prod-replace', function() {
+
+      
+    });
+    
+  });
+
+// END PRODUCTION
+
+
+
+// Watch for changes and reload page
+gulp.task('watch', function() {
+  gulp.watch('src/sass/*.scss', ['styles']);
+  gulp.watch('src/*.html', notifyLiveReload);
+  gulp.watch('src/css/*.css', notifyLiveReload);
+});
+
+
 
 // Compress images using tinypng API
 gulp.task('tinypng', function () {

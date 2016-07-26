@@ -45,7 +45,7 @@ function notifyLiveReload(event) {
 
 // Minify HTML
 gulp.task('min-html', function() {
-  return gulp.src('src/*.html')
+  return gulp.src('*.html')
   .pipe(htmlmin({collapseWhitespace: true}))
   .pipe(gulp.dest('dist'))
 
