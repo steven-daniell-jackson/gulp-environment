@@ -64,6 +64,43 @@ Distribution Structure:
 
 **********************************************************************************************************************************************
 
+Build Production:
+
+-- Usage --
+
+Run "gulp prod" in your CLI
+
+-- Build sequence --
+
+prod-clean - Clear directory
+prod-concat-css - Combine CSS
+prod-replace - Replace "/src/" with "./"
+prod-copy - Copy files to "prod" directory
+
+
+Distribution Structure:
+
+-- prod
+	-- css
+		- bootstrap.min.css
+		- bundle.min.css
+		- styles.css
+		- styles.min.css
+	-- js
+		- bootstrap.js
+		- bootstrap.min.js
+		- jquery-1.11.2.min.js
+		- modernizr-2.8.3-respond-1.4.2.min.js
+	- .gitignore
+	- .htaccess
+	- Gulpfile.js
+	- *.html
+	- package.json
+	- Readme
+
+
+**********************************************************************************************************************************************
+
 Build Tinypng: 
 
 -- Usage --
