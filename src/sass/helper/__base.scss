@@ -1,8 +1,42 @@
 @import 'helper/__mixin';
 
+body {
+
+	font: $base-font-stack;
+	font-size: $base-font-size;
+	color: $base-font-color;
+}
+h1 {color: $base-heading-color;
+	font-size: $base-h1-font-size;
+}
+h2 {
+	color: $base-heading-color;
+	font-size: $base-h2-font-size;
+}
+h3 {
+	color: $base-heading-color;
+	font-size: $base-h3-font-size;
+}
+h4 {
+	color: $base-heading-color;
+	font-size: $base-h4-font-size;
+}
+h5 {
+	color: $base-heading-color;
+	font-size: $base-h5-font-size;
+}
+h6 {
+	color: $base-heading-color;
+	font-size: $base-h6-font-size;
+}
+p {
+	color: $base-heading-color;
+	font-size: $base-paragraph-font-size;}
+
 
 a {
-	@include link-style(10px 20px, #222);
+
+	@include link-style(10px 20px);
 	@include link-transition(0.3s);
 	
 	&:hover {

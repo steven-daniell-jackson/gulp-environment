@@ -1,14 +1,14 @@
 
 // Default Mixin
 @mixin link-style(
-	$padding:0,
-	$background-color:$base-black,
-	$text-color:$base-link-color
+	$padding:$base-link-padding,
+	$background-color:$base-background-link-color,
+	$text-color:$base-text-link-color
 	)
 {
-	padding: $padding;
-	background-color:$background-color;
-	color: $text-color;
+	padding: $padding !important;
+	background-color:$background-color !important;
+	color: $text-color !important;
 }
 
 @mixin link-transition($time:0.5s){ 
@@ -23,10 +23,23 @@
 	margin: 40px 0;
 }
 
+@mixin small-margin-spacer() {
+	margin: 20px 0;
+}
+
 @mixin padding-spacer() {
 	padding: 40px 0;
 }
 
+@mixin small-padding-spacer() {
+	padding: 20px 0;
+}
+
+@mixin hide () {
+	display: none;
+}
+
+//  Background Images
 @mixin background-image($filename) {
 	background: url($filename) no-repeat center center;
 	background-size: cover;

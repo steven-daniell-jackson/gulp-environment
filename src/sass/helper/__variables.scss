@@ -1,14 +1,29 @@
 // Default colors
-$base-white: #fff;
-$base-black: #000000;
+$white: #fff;
+$black: #000000;
 
 // Variables
-$base-font-stack: 'Lato', sans-serif;
-$base-font-size: 1.5em;
-$base-paragraph-font-size: 1.3em;
-$base-font-color: $base-black;
-$base-heading-color: $base-black;
-$base-link-color: $base-black;
+
+// Fonts
+$base-font-stack: 'Lato', sans-serif !default;
+$base-font-size: 1.2em !default;
+$base-font-color: $black !default;
+$base-paragraph-font-size: 1.3em !default;
+
+// Headings
+$base-heading-color: $black !default;
+$base-h1-font-size : 2em !default;
+$base-h2-font-size : 1.5em !default;
+$base-h3-font-size : 1.17em !default;
+$base-h4-font-size : 1em !default;
+$base-h5-font-size : 0.83em !default;
+$base-h6-font-size : 0.7em !default;
+
+// Links
+
+$base-text-link-color: $black !default;
+$base-background-link-color: $black !default;
+$base-link-padding: 20px 10px !default;
 
 
 // Breakpoints

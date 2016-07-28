@@ -9,18 +9,38 @@ DO NOT EDIT THE CSS DIRECTLY
 */ 
 
 @import url(https://fonts.googleapis.com/css?family=Lato);
+
 @import 'helper/__variables';
+
+
+// Override Variables.
+$base-font-stack: 'Lato', sans-serif;
+$base-font-size: 1.2em;
+$base-font-color: #616161;
+$base-paragraph-font-size: 1.3em;
+
+// Headings (Headings up till H6 availble)
+$base-heading-color: #1c1c1c;
+$base-h1-font-size : 2em;
+$base-h2-font-size : 1.7em;
+$base-h3-font-size : 1.17em;
+
+// Links
+$base-text-link-color: $white;
+$base-background-link-color: #222;
+$base-link-padding: 20px 10px;
+
+
+
+// Custom styles
+p {
+	display: none;
+
+}
+
+
+
+
+
+// Load __base.scss last so that variables are overwritten
 @import 'helper/__base';
-
-p {display: none;}
-// // Variables
-// $base-font-stack: 'Lato', sans-serif;
-// $base-font-size: 1.5em;
-// $base-paragraph-font-size: 1.3em;
-// $base-font-color: $base-black;
-// $base-heading-color: $base-black;
-// $base-link-color: $base-black;
-
-
-
-// body {background-color: $base-black;}
