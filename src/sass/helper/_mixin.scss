@@ -18,7 +18,7 @@
 
 
 // Helper Mixin
-@mixin margin-spacer() {
+@mixin large-margin-spacer() {
 	margin: 40px 0;
 }
 
@@ -26,7 +26,7 @@
 	margin: 20px 0;
 }
 
-@mixin padding-spacer() {
+@mixin large-padding-spacer() {
 	padding: 40px 0;
 }
 

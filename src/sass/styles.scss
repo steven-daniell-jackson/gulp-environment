@@ -9,7 +9,7 @@ DO NOT EDIT THE CSS DIRECTLY
 @import url(https://fonts.googleapis.com/css?family=Lato);
 
 @import 'helper/variables';
-
+@import 'helper/_mixin';
 
 // Override Variables.
 $base-font-stack: 'Lato', sans-serif;
@@ -31,10 +31,8 @@ $base-link-padding: 20px 10px;
 
 
 // Custom styles
-p {
-	display: none;
 
-}
+p {border-top: 1px solid #eee; @include small-padding-spacer();}
 
 
 
