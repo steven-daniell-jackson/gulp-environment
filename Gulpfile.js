@@ -238,8 +238,10 @@ gulp.task('prod', function(callback) {
 // Watch for changes and reload page
 gulp.task('watch', function() {
   gulp.watch('src/sass/*.scss', ['styles']);
+  gulp.watch('src/sass/helper/*.scss', ['styles']);
   gulp.watch('src/*.html', notifyLiveReload);
   gulp.watch('src/css/*.css', notifyLiveReload);
+  gulp.watch('src/js/*.js', notifyLiveReload);
 });
 
 

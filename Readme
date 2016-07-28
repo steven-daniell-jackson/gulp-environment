@@ -78,7 +78,7 @@ prod-replace - Replace "/src/" with "./"
 prod-copy - Copy files to "prod" directory
 
 
-Distribution Structure:
+Production Structure:
 
 -- prod
 	-- css

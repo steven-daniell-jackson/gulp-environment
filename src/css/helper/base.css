@@ -1,23 +1,26 @@
 /*
-Error: Undefined mixin 'link-style'.
-        on line 16 of src/sass/helper/base.scss, in `link-style'
-        from line 16 of src/sass/helper/base.scss
+Error: Undefined variable: "$link-color".
+        on line 3 of src/sass/helper/base.scss, in `link-style'
+        from line 6 of src/sass/helper/base.scss
 
-11: p {
-12: 	font-size: $paragraph-font-size;
-13: }
-14: 
-15: a {
-16: 	@include link-style(10px 20px, #c3c3c3);
-17: 	@include link-transition(0.3s);
-18: 	
-19: 	&:hover {@include link-style(#000);@include link-transition(0.6s);}
-20: }
+1: 
+2: @import 'helper/mixin';
+3: 
+4: 
+5: a {
+6: 	@include link-style(10px 20px, #c3c3c3);
+7: 	@include link-transition(0.3s);
+8: 	
 
 Backtrace:
-src/sass/helper/base.scss:16:in `link-style'
-src/sass/helper/base.scss:16
-C:/Ruby23/lib/ruby/gems/2.3.0/gems/sass-3.4.22/lib/sass/tree/visitors/perform.rb:351:in `block in visit_mixin'
+src/sass/helper/base.scss:3:in `link-style'
+src/sass/helper/base.scss:6
+C:/Ruby23/lib/ruby/gems/2.3.0/gems/sass-3.4.22/lib/sass/script/tree/variable.rb:49:in `_perform'
+C:/Ruby23/lib/ruby/gems/2.3.0/gems/sass-3.4.22/lib/sass/script/tree/node.rb:58:in `perform'
+C:/Ruby23/lib/ruby/gems/2.3.0/gems/sass-3.4.22/lib/sass/tree/visitors/perform.rb:72:in `block in perform_arguments'
+C:/Ruby23/lib/ruby/gems/2.3.0/gems/sass-3.4.22/lib/sass/tree/visitors/perform.rb:65:in `zip'
+C:/Ruby23/lib/ruby/gems/2.3.0/gems/sass-3.4.22/lib/sass/tree/visitors/perform.rb:65:in `perform_arguments'
+C:/Ruby23/lib/ruby/gems/2.3.0/gems/sass-3.4.22/lib/sass/tree/visitors/perform.rb:361:in `block in visit_mixin'
 C:/Ruby23/lib/ruby/gems/2.3.0/gems/sass-3.4.22/lib/sass/stack.rb:98:in `block in with_mixin'
 C:/Ruby23/lib/ruby/gems/2.3.0/gems/sass-3.4.22/lib/sass/stack.rb:115:in `with_frame'
 C:/Ruby23/lib/ruby/gems/2.3.0/gems/sass-3.4.22/lib/sass/stack.rb:98:in `with_mixin'
@@ -69,4 +72,4 @@ C:/Ruby23/bin/sass:23:in `<main>'
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined mixin 'link-style'.\A         on line 16 of src/sass/helper/base.scss, in `link-style'\A         from line 16 of src/sass/helper/base.scss\A \A 11: p {\A 12: 	font-size: $paragraph-font-size;\A 13: }\A 14: \A 15: a {\A 16: 	@include link-style(10px 20px, #c3c3c3);\A 17: 	@include link-transition(0.3s);\A 18: 	\A 19: 	&:hover {@include link-style(#000);@include link-transition(0.6s);}\A 20: }"; }
+  content: "Error: Undefined variable: \"$link-color\".\A         on line 3 of src/sass/helper/base.scss, in `link-style'\A         from line 6 of src/sass/helper/base.scss\A \A 1: \A 2: @import 'helper/mixin';\A 3: \A 4: \A 5: a {\A 6: 	@include link-style(10px 20px, #c3c3c3);\A 7: 	@include link-transition(0.3s);\A 8: 	"; }

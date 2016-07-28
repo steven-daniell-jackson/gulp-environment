@@ -1,0 +1,12 @@
+@import 'helper/__mixin';
+
+
+a {
+	@include link-style(10px 20px, #222);
+	@include link-transition(0.3s);
+	
+	&:hover {
+		@include link-style(#000);
+		@include link-transition(0.6s);
+	}
+}
