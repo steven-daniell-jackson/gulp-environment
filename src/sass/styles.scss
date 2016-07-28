@@ -1,8 +1,6 @@
 /*!
 This is a generated stylesheet
-Written by Steven Jackson - 21 July 2016
-
-Custom Bootstrap file with commonly used 
+Written by Steven Jackson - 21 July 2016 
 
 IMPORTANT:
 DO NOT EDIT THE CSS DIRECTLY
@@ -10,7 +8,7 @@ DO NOT EDIT THE CSS DIRECTLY
 
 @import url(https://fonts.googleapis.com/css?family=Lato);
 
-@import 'helper/__variables';
+@import 'helper/variables';
 
 
 // Override Variables.
@@ -43,4 +41,4 @@ p {
 
 
 // Load __base.scss last so that variables are overwritten
-@import 'helper/__base';
+@import 'helper/_base';
