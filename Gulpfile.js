@@ -9,7 +9,8 @@ replace = require('gulp-replace-task'),
 runSequence = require('run-sequence'),
 clean = require('gulp-clean'),
 tinypng = require('gulp-tinypng'),
-urlAdjuster = require('gulp-css-url-adjuster');
+urlAdjuster = require('gulp-css-url-adjuster'),
+del = require('del');
 
 // Express server
 gulp.task('express', function() {
@@ -37,9 +38,14 @@ function notifyLiveReload(event) {
   });
 }
 
+gulp.task('del', function() {
+
+del(['src/css/bundle.min.css']).then(paths => {
+    console.log('Deleted files and folders:\n', paths.join('\n'));
+});
 
 
-
+});
 
 // DISTRIBUTION
 
@@ -64,7 +70,7 @@ gulp.task('concat-css', function () {
 // Minify CSS
 gulp.task('styles', function() {
   return sass('src/sass', { style: 'expanded' })
-  .pipe(gulp.dest('src/css'))
+  .pipe(gulp.dest('src/css/helper'))
   .pipe(rename({suffix: '.min'}))
   .pipe(minifycss())
   .pipe(gulp.dest('src/css'));
@@ -141,10 +147,14 @@ gulp.task('clean', function () {
 // "dist" task. Start sequence
 gulp.task('dist', function(callback) {
     // runSequence('clean', ['concat-css', 'min-html', 'replace', 'copy'], callback);
-    runSequence('clean', 'concat-css', 'min-html', 'copy', 'replace', function() {
+runSequence('del', 'clean', function() {
 
+runSequence('concat-css', 'min-html', 'copy', 'replace', function() {  });
       
     });
+
+
+    
     
   });
 
@@ -224,7 +234,7 @@ gulp.task('prod-clean', function () {
 // "prod" task. Start sequence
 gulp.task('prod', function(callback) {
     // runSequence('clean', ['concat-css', 'min-html', 'replace', 'copy'], callback);
-    runSequence('prod-clean', 'prod-concat-css', 'prod-copy', 'prod-replace', function() {
+    runSequence('del', 'prod-clean', 'prod-concat-css', 'prod-copy', 'prod-replace', function() {
 
       
     });
