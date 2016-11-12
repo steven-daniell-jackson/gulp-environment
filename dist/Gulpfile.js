@@ -17,7 +17,7 @@ gulp.task('express', function() {
   var express = require('express');
   var app = express();
   app.use(require('connect-livereload')({port: 35729}));
-  app.use(express.static(__dirname + "/src"));
+  app.use(express.static(__dirname + "/source"));
   app.listen(3000, '0.0.0.0');
 });
 
@@ -40,7 +40,7 @@ function notifyLiveReload(event) {
 
 gulp.task('del', function() {
 
-del(['src/css/bundle.min.css']).then(paths => {
+del(['source/css/bundle.min.css']).then(paths => {
     console.log('Deleted files and folders:\n', paths.join('\n'));
 });
 
@@ -51,7 +51,7 @@ del(['src/css/bundle.min.css']).then(paths => {
 
 // Minify HTML
 gulp.task('min-html', function() {
-  return gulp.src('src/*.html')
+  return gulp.src('source/*.html')
   .pipe(htmlmin({collapseWhitespace: true}))
   .pipe(gulp.dest('dist'))
 
@@ -59,8 +59,8 @@ gulp.task('min-html', function() {
 
 // Combine CSS and minify css
 gulp.task('concat-css', function () {
-  return gulp.src('src/css/**/*.min.css')
-  .pipe(concatCss("src/css/bundle.min.css"))
+  return gulp.src('source/css/**/*.min.css')
+  .pipe(concatCss("source/css/bundle.min.css"))
   .pipe(minifycss())
   .pipe(gulp.dest(''));
 
@@ -69,11 +69,11 @@ gulp.task('concat-css', function () {
 
 // Minify CSS
 gulp.task('styles', function() {
-  return sass('src/sass', { style: 'expanded' })
-  .pipe(gulp.dest('src/css/helper'))
+  return sass('source/sass', { style: 'expanded' })
+  .pipe(gulp.dest('source/css/helper'))
   .pipe(rename({suffix: '.min'}))
   .pipe(minifycss())
-  .pipe(gulp.dest('src/css'));
+  .pipe(gulp.dest('source/css'));
 });
 
 // Copy to /dist/ directory
@@ -96,25 +96,25 @@ gulp.task('copy', function(){
   .pipe(gulp.dest('dist'));
 
 // CSS, JS directories
-gulp.src('src/css/**')
+gulp.src('source/css/**')
 .pipe(gulp.dest('dist/css'));
 
 // CSS, JS directories
-gulp.src('src/*.html')
+gulp.src('source/*.html')
 .pipe(gulp.dest('dist/'));
 
-gulp.src('src/js/**')
+gulp.src('source/js/**')
 .pipe(gulp.dest('dist/js'));
 
 });
 
-// Replace /src/ in html
+// Replace /source/ in html
 gulp.task('replace', function() {
   gulp.src('./dist/*.html')
   .pipe(replace({
     patterns: [
     {
-      match: /src/g,
+      match: /source/g,
       replacement: '.'
     }
     ]
@@ -126,7 +126,7 @@ gulp.task('replace', function() {
 
 
 
-// Replace /src/ in CSS
+// Replace /source/ in CSS
 gulp.task('replace-css', function() {
  gulp.src('./dist/css/bundle.min.css').
  pipe(urlAdjuster({
@@ -165,8 +165,8 @@ runSequence('concat-css', 'min-html', 'copy', 'replace', function() {  });
 
 // Combine CSS and minify css
 gulp.task('prod-concat-css', function () {
-  return gulp.src('src/css/**/*.min.css')
-  .pipe(concatCss("src/css/bundle.min.css"))
+  return gulp.src('source/css/**/*.min.css')
+  .pipe(concatCss("source/css/bundle.min.css"))
   // .pipe(minifycss())
   .pipe(gulp.dest(''));
 
@@ -193,25 +193,25 @@ gulp.task('prod-copy', function(){
   .pipe(gulp.dest('prod'));
 
 // CSS, JS directories
-gulp.src('src/css/**')
+gulp.src('source/css/**')
 .pipe(gulp.dest('prod/css'));
 
 // CSS, JS directories
-gulp.src('src/*.html')
+gulp.src('source/*.html')
 .pipe(gulp.dest('prod/'));
 
-gulp.src('src/js/**')
+gulp.src('source/js/**')
 .pipe(gulp.dest('prod/js'));
 
 });
 
-// Replace /src/ in html
+// Replace /source/ in html
 gulp.task('prod-replace', function() {
   gulp.src('./prod/*.html')
   .pipe(replace({
     patterns: [
     {
-      match: /src/g,
+      match: /source/g,
       replacement: '.'
     }
     ]
@@ -247,18 +247,18 @@ gulp.task('prod', function(callback) {
 
 // Watch for changes and reload page
 gulp.task('watch', function() {
-  gulp.watch('src/sass/*.scss', ['styles']);
-  gulp.watch('src/sass/helper/*.scss', ['styles']);
-  gulp.watch('src/*.html', notifyLiveReload);
-  gulp.watch('src/css/*.css', notifyLiveReload);
-  gulp.watch('src/js/*.js', notifyLiveReload);
+  gulp.watch('source/sass/*.scss', ['styles']);
+  gulp.watch('source/sass/helper/*.scss', ['styles']);
+  gulp.watch('source/*.html', notifyLiveReload);
+  gulp.watch('source/css/*.css', notifyLiveReload);
+  gulp.watch('source/js/*.js', notifyLiveReload);
 });
 
 
 
 // Compress images using tinypng API
 gulp.task('tinypng', function () {
-  gulp.src('src/**/*.png')
+  gulp.src('source/**/*.png')
   .pipe(tinypng('UHTk65aGnnMbspZF8K7-Kvnq_DrON7ya'))
   .pipe(gulp.dest('./dist'));
 });

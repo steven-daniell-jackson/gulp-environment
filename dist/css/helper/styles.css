@@ -18,7 +18,8 @@ DO NOT EDIT THE CSS DIRECTLY
 /* ----------- iPad mini, 1 and 2 ----------- */
 /* ----------- iPad 3 and 4 ----------- */
 p {
-  display: none;
+  border-top: 1px solid #eee;
+  padding: 20px 0;
 }
 
 body {
